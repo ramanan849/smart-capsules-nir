@@ -1,6 +1,4 @@
 # Smart Capsules: NIR-Triggered LbL Carriers for Chemo-Photothermal Therapy <br>
-**Course** : BB601 - Introduction to Bionanotechnology, IIT Bombay (Autumn 2026) <br>
-**Instructor** : Prof. Rohit Srivastava <br>
 **Team** : Team 10 <br>
 **Project** : NIR-Triggered Layer-by-Layer "Smart Capsules" for On-Demand Chemo-Photothermal Therapy of Breast Cancer <br>
 
