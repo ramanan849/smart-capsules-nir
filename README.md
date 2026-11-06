@@ -49,7 +49,7 @@ We are not building this in a lab - it is a course project. What we did instead 
       i. Change one input at a time and see what moves the tumour temperature the most (total gold, tumour size, and how much light gets there). <br>
       ii. Final numbers in [design_envelope.txt](sims/results/design_envelope.txt). Figure: [fig_sensitivity](sims/figs/fig_sensitivity.png) <br>
 
-Every input and where it comes from is in [parameter_table.txt](sims/results/parameter_table.txt) (the "NO" ones are the inputs we could not check against a primary source). A longer, plain-English write-up of each simulation - what it is, why we ran it, and what came out - is in [docs/simulations_explained.txt](docs/simulations_explained.txt). <br>
+Every input and where it comes from is in [parameter_table.txt](sims/results/parameter_table.txt) (the "NO" ones are the inputs we could not check against a primary source). <br>
 
 ***
 **Running it** <br>
