@@ -1,0 +1,11 @@
+{
+ "check_centre_numeric_K": 5.435,
+ "check_centre_analytic_K": 5.436,
+ "G_used_ugpg": 8.0,
+ "T_centre_15min": 42.4,
+ "T_edge_15min": 40.01,
+ "T_2mm_out_15min": 38.67,
+ "time_centre_to_41C_min": 1.64,
+ "time_constant_perfusion_s": 497.6499861763893,
+ "T_centre_at_4Wcm2_3min_same_gold": 93.6
+}

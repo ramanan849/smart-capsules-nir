@@ -1,0 +1,50 @@
+{
+ "MPE_808": 0.329,
+ "MPE_830": 0.364,
+ "MPE_1064_cw": 1.0,
+ "oneal_over_MPE": 12.2,
+ "angelatos_avg_over_MPE": 7.0,
+ "angelatos_pulse_over_single_pulse_MPE": 7.0,
+ "check_cem43_43C_10min": 10.0,
+ "CEM43_min_centre": 4.508,
+ "CEM43_min_edge": 0.175,
+ "CEM43_min_out2mm": 0.031,
+ "size_budget": {
+  "100 nm core, 4 layers": {
+   "wall_nm": 11.0,
+   "d_total_nm": 147.5,
+   "h_over_R": 0.18,
+   "h_over_R_with_rods": 0.296
+  },
+  "100 nm core, 5 layers": {
+   "wall_nm": 13.7,
+   "d_total_nm": 153.0,
+   "h_over_R": 0.216,
+   "h_over_R_with_rods": 0.322
+  },
+  "100 nm core, 6 layers": {
+   "wall_nm": 16.5,
+   "d_total_nm": 158.5,
+   "h_over_R": 0.248,
+   "h_over_R_with_rods": 0.346
+  },
+  "120 nm core, 4 layers": {
+   "wall_nm": 11.0,
+   "d_total_nm": 167.5,
+   "h_over_R": 0.155,
+   "h_over_R_with_rods": 0.259
+  },
+  "120 nm core, 5 layers": {
+   "wall_nm": 13.7,
+   "d_total_nm": 173.0,
+   "h_over_R": 0.186,
+   "h_over_R_with_rods": 0.284
+  },
+  "120 nm core, 6 layers": {
+   "wall_nm": 16.5,
+   "d_total_nm": 178.5,
+   "h_over_R": 0.216,
+   "h_over_R_with_rods": 0.306
+  }
+ }
+}

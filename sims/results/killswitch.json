@@ -1,0 +1,20 @@
+{
+ "rods_per_carrier": 30,
+ "spheres_per_carrier_Fs0.2": 135,
+ "Cabs_carrier_rods_m2": 1.4057474549842642e-14,
+ "Cabs_carrier_spheres_m2": 2.0136944285994057e-16,
+ "I_MPE_Wm2": 3300.0,
+ "dT_one_carrier_rods_K": 0.00010547349506552442,
+ "dT_one_carrier_spheres_K": 1.5108787046015383e-06,
+ "dT_centre_per_ugpg_rods_K": 0.6794556274726408,
+ "gold_needed_for_5K_rods_ugpg": 7.358832273710665,
+ "mu_a_per_ugpg_rods_cm-1": 0.12171929482361507,
+ "gold_needed_5K_rods_wb0.5": 6.068973117324888,
+ "gold_needed_5K_rods_wb5.0": 9.144058879820001,
+ "dT_centre_per_ugpg_spheres_K": 0.008651568287957833,
+ "gold_needed_for_5K_spheres_ugpg": 577.9299005198316,
+ "mu_a_per_ugpg_spheres_cm-1": 0.001549862490720163,
+ "gold_needed_5K_spheres_wb0.5": 476.6301091660144,
+ "gold_needed_5K_spheres_wb5.0": 718.133644333913,
+ "carriers_per_mL_for_5K_rods": 6371783721.929973
+}

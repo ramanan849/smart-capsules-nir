@@ -1,0 +1,23 @@
+DESIGN ENVELOPE (from the models; see simulations_explained.txt for caveats)
+
+Gold geometry      : nanorods, ~40 x 10 nm, aspect ratio 3.8-4.1 (peak 800-830 nm in n~1.45);
+                     spheres cannot reach 800 nm on this carrier (peak <= ~560 nm)
+Gold per carrier   : 20-50 rods (Fs ~0.15-0.4); heating depends on total gold per g tissue
+Core + shell       : 100 nm core + 4 PSS/PAH layers (~11 nm wall) + rods + HA = ~148 nm;
+                     5-6 layers -> 153-159 nm (just over the 150 nm window)
+Irradiance         : <= 0.33 W/cm2 at 808 nm (CW skin limit, > 10 s)
+
+Gold needed in the tumour (ug Au / g tissue) for 41-43 C at the centre, and timing:
+  irradiance  blood flow   gold range    time to 41 C   time to 90% released
+  0.10 W/cm2  low          17.0-25.0       3.0 min        2.3 min
+  0.10 W/cm2  typical      20.0-29.0       2.1 min        1.9 min
+  0.10 W/cm2  high         24.5-36.0       1.4 min        1.5 min
+  0.20 W/cm2  low           8.5-12.5       3.0 min        2.3 min
+  0.20 W/cm2  typical      10.0-14.5       2.1 min        1.9 min
+  0.20 W/cm2  high         12.5-18.0       1.4 min        1.5 min
+  0.33 W/cm2  low           5.5- 7.5       2.8 min        2.2 min
+  0.33 W/cm2  typical       6.0- 8.5       2.3 min        2.0 min
+  0.33 W/cm2  high          7.5-10.5       1.5 min        1.6 min
+
+Dwell time         : a few minutes to heat + < 1 min to release; 10-15 min total keeps the
+                     centre in 41-43 C with CEM43 ~ a few min (mild hyperthermia)

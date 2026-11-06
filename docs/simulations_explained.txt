@@ -1,0 +1,188 @@
+BB601 Team 10 - what each simulation is, why we run it, and what came out
+
+All code is in sims/. To rebuild every figure and number from scratch:
+    python sims/run_all.py
+Figures land in sims/figs/ (PNG for docs/slides, PDF for print), numbers in sims/results/.
+Every input and where it comes from: sims/results/parameter_table.txt ("NO" = not checked
+against a primary source).
+
+All nine validation checks pass (sims/results/validation.json).
+
+------------------------------------------------------------
+1. THE KILL-SWITCH CHECK            fig_killswitch.png        (heat_killswitch.py)
+------------------------------------------------------------
+What it is: The simplest possible heat calculation. A warm sphere in water or tissue settles
+at ΔT = (absorbed power) / (4π k R). We do it twice - once for one carrier on its own, and once
+for a whole tumour full of carriers (a 1 cm ball of tissue, heated evenly, cooled by blood).
+
+Why we run it first: Every triggered-release paper we read is micron-scale, where one capsule
+can heat itself. Our carrier is 100 times smaller. If it cannot reach 41-43 °C at a laser power
+that is safe for skin, the whole nanoscale design fails, and we would want to know that now
+rather than in week three.
+
+What we wanted: A yes or no, and if yes, how much gold it takes.
+
+What came out:
+- One carrier alone (30 rods, at the 0.33 W/cm² skin limit): about 0.0001 K. A clear no.
+  Even a 5 µm Skirtach capsule only gets about 0.004 K at this intensity - Skirtach got his
+  5-15 K with a focused 50 mW beam under a microscope, which is far above any skin limit.
+- Many carriers together: yes. About 7 µg of rod gold per gram of tumour gives +5 K at the
+  centre (6-9 µg/g over the range of blood flow). Nunes measured 41 µg/g in tumours after an
+  IV dose, so this is within reach, and easier for us since we deliver locally.
+- With spheres instead of rods it takes about 580 µg/g. Not realistic.
+
+So what: At our size the heating is collective. The gold on the carrier matters because it goes
+wherever the drug goes, not because each carrier makes a hot spot around itself. This also
+means the "steep local gradient at the shell" idea from our Approach does not work at 140 nm.
+
+Caveats: Light is assumed to reach the whole tumour at full strength (see sensitivity). Rods
+are treated as independent absorbers. Tissue's own absorption is ignored.
+
+------------------------------------------------------------
+2. OPTICS: SPHERES OR RODS?         fig_resonance_vs_loading.png, fig_optics_spectra.png   (optics.py)
+------------------------------------------------------------
+What it is: How strongly gold absorbs light, and at what colour, for (a) one sphere (Mie theory,
+from the miepython library, plus the simple quasi-static formula as a check), (b) one rod (Gans
+theory - a rod treated as a stretched sphere), and (c) many spheres sitting on our carrier and
+talking to each other (coupled dipoles: each sphere feels the light plus the fields of all the
+others). Gold data: Johnson and Christy 1972, with the extra damping that small particles have.
+
+Why: Our original rationale assumed that packing spheres densely red-shifts them into the NIR.
+We said in Submission 2 we would let the optics decide between spheres and rods.
+
+What we wanted: The absorption peak against how much gold is on the carrier (filling factor Fs)
+for spheres, and against aspect ratio for rods, compared with our 800-830 nm window.
+
+What came out:
+- Checks: a bare 5 nm sphere in water peaks at 523 nm (Govorov says ~520). Mie and quasi-static
+  agree within 1% at that size.
+- Spheres on a 130 nm carrier: the peak only moves from ~530 to ~550-555 nm, even at Fs = 0.4,
+  even when we let them clump. Never near 800 nm.
+- Rods: aspect ratio 3.8-4.1 puts the peak in 800-830 nm (for a surrounding index of 1.45;
+  4.3-4.6 in plain water, 3.6-3.9 at 1.5). A 40 x 10 nm rod peaks at 820 nm.
+- Per unit of gold, rods absorb about 68 times more than spheres at 808 nm.
+Answer: rods.
+
+Caveats: The dipole model underestimates coupling when spheres actually touch, so tightly
+fused clusters (like Angelatos after irradiation) could shift further - but that is not a
+state we can design for. Gans theory is quasi-static; real rods shift a bit further red.
+
+------------------------------------------------------------
+3. HEAT MODEL CHECKS                fig_heat_checks.png        (heat_checks.py)
+------------------------------------------------------------
+What it is: Two checks of our heat model against the only numbers the literature gives us.
+Left: one gold sphere at 10^4 W/cm², surface rise against radius. Right: Skirtach's capsules -
+how the heating slope changes when the gold filling factor goes from 0.2 to 0.4.
+
+Why: Before we trust the kill-switch number we want the model to reproduce known results.
+
+What came out:
+- ΔT ∝ R²: slope 2.00, as Govorov says.
+- Govorov Fig. 1b (R = 30 nm): we get 5.1 K, he shows about 4.3 K. 18% apart, which is fine
+  for reading a number off a plot.
+- Skirtach: his own nearest-neighbour model predicts 1.41x, adding up every particle on the
+  capsule predicts 2.0x, and he measured 1.58x. From his error bars the measured ratio is about
+  1.58 ± 0.27, so the data cannot really tell the two models apart. Not to forget, at the scale
+  of a whole capsule the "add everything up" picture is the physically complete one, and
+  clustering of the gold (visible in his TEM) would pull it below 2.
+
+------------------------------------------------------------
+4. HOW FAST THINGS HEAT UP          fig_tau_vs_size.png        (heat_checks.py)
+------------------------------------------------------------
+What it is: The time-dependent heat equation for a sphere that starts absorbing at t = 0,
+solved numerically.
+
+Why: In Submission 2 we used τ ≈ L²/κ on the back of an envelope to throw out the pulsed regime.
+This checks it properly.
+
+What came out: Time to reach 63% of steady state is about 2.1 R²/κ. That is 0.13 ns for a 3 nm
+gold particle, 73 ns for our carrier, and about 0.1 ms for a 5 µm capsule. During a 10 ns pulse
+our carrier only gets to about a quarter of its steady rise, and the 5 µm capsule gets basically
+nothing. That confirms why we went with continuous-wave light.
+
+------------------------------------------------------------
+5. TEMPERATURE IN TISSUE (PENNES)   fig_pennes.png             (pennes.py)
+------------------------------------------------------------
+What it is: The Pennes bioheat equation, which is the heat equation plus a cooling term for blood
+flow. A 1 cm tumour full of carriers inside normal tissue, laser on for 15 min, then off.
+
+Why: To answer the question from our very first rationale that we never answered - how far does
+the heat spread into healthy tissue? Also to get the dwell time.
+
+What came out (8 µg/g gold, 0.33 W/cm²):
+- Centre: 41 °C in about 1.6 min, settles at about 42.4 °C.
+- Tumour edge: about 40 °C. 2 mm into normal tissue: about 38.7 °C.
+- Same gold at the O'Neal condition (4 W/cm², 3 min): the centre goes past 90 °C. So the
+  literature condition is both over the skin limit and far past mild hyperthermia for us.
+- Check: the numerical centre temperature matches the exact formula to 0.02%.
+
+Caveat: The edge of the tumour runs about 2 °C cooler than the centre. That is just how a heated
+ball in tissue behaves, and it means "41-43 °C" really applies to the core of the tumour.
+
+------------------------------------------------------------
+6. DRUG RELEASE                     fig_release.png            (release.py)
+------------------------------------------------------------
+What it is: The fraction of drug out against time. The liposome lets drug out slowly at 37 °C
+and very fast above its transition (~40-41 °C). The polyelectrolyte wall is a second barrier in
+series with an unknown permeability. We drive it with the temperature from the Pennes run.
+
+Why: The release has to reproduce a no-laser baseline before any triggered prediction means
+anything.
+
+What came out:
+- Baseline: matched to Deng's doxorubicin from the coated liposome, 11% at 24 h (Fig. 6B).
+  After 24 h Deng's curve speeds up (their Korsmeyer-Peppas n is about 1.1, i.e. not simple
+  diffusion), which our simple model does not follow. Deng's siRNA curve (Fig. 2E) is shown
+  for comparison only - it is siRNA coming off the film, not drug.
+- With the laser: 90% released at the tumour centre within about 2 min, so the dwell time is
+  set by the heating, not the lipid.
+- The wall only matters if its doxorubicin permeability is below about 4 x 10⁻⁸ cm/s (see
+  fig_sensitivity.png, right). Nobody has measured it.
+
+Caveat: Deng's liposome is rigid DSPC/cholesterol. A thermosensitive liposome will leak more at
+37 °C, so the baseline is a best case.
+
+------------------------------------------------------------
+7. SAFETY                           fig_safety.png             (safety.py)
+------------------------------------------------------------
+What it is: (a) The continuous-wave skin limit against wavelength, with our protocol and the
+literature conditions marked. (b) The thermal dose CEM43 (minutes-equivalent at 43 °C) along the
+Pennes temperature history.
+
+What came out:
+- Skin limit (exposures > 10 s): 0.33 W/cm² at 808 nm, 0.36 at 830 nm. Ours sits on it.
+  O'Neal's 4 W/cm² is about 12x over. Angelatos' average 7 W/cm² at 1064 nm is about 7x over.
+- CEM43 after 15 min: ~4.5 min at the tumour centre (mild hyperthermia), ~0.2 at the edge,
+  ~0.03 at 2 mm into normal tissue.
+- Size and Reissner: 100 nm core + 4 layers = 148 nm total, wall h/R about 0.18 (0.3 with rods),
+  which is still outside Fery's h/R < 0.1, so we do not quote a stiffness.
+
+------------------------------------------------------------
+8. SENSITIVITY AND THE DESIGN ENVELOPE   fig_sensitivity.png, results/design_envelope.txt   (design.py)
+------------------------------------------------------------
+What it is: Change one input at a time and see how the tumour-centre temperature moves (left), and
+how release time depends on the unknown wall permeability (right). Then a grid search for the
+ranges that give 41-43 °C at the centre under the skin limit.
+
+What came out:
+- Biggest effects: total gold in the tumour (4-16 µg/g -> 39.7-47.8 °C) and tumour size
+  (6-15 mm -> 39.3-47.0 °C). Then how much light reaches the tumour (half the light -> 39.7 °C).
+  Blood flow and tissue conductivity move it by about 1 °C each way.
+- The rod aspect ratio has to be matched to the actual index around the rods - an aspect-4 rod
+  in n = 1.33 or 1.5 instead of 1.45 loses about 1 °C.
+- Envelope (also in Section III.c of the doc):
+    gold        : nanorods ~40 x 10 nm, aspect ratio 3.8-4.1, 20-50 per carrier
+    carrier     : 100 nm core + 4 PSS/PAH layers + rods + HA, ~148 nm
+    irradiance  : <= 0.33 W/cm² at 808 nm
+    tumour gold : 6-9 µg/g at 0.33 W/cm² (5.5-10.5 over the blood flow range);
+                  10-15 at 0.2 W/cm²; 20-29 at 0.1 W/cm²
+    dwell       : ~1.5-3 min to reach 41 °C, release done within about 2 min of switching on;
+                  10-15 min total for the hyperthermia dose
+
+------------------------------------------------------------
+Suggested figure use
+------------------------------------------------------------
+In the Submission 3 doc (Section III.c): fig_killswitch, fig_resonance_vs_loading, fig_pennes,
+fig_release, fig_safety.
+Extra for the presentation or an appendix: fig_optics_spectra, fig_heat_checks, fig_tau_vs_size,
+fig_sensitivity.

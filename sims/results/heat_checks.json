@@ -1,0 +1,24 @@
+{
+ "govorov_R30_dT_K": 5.07,
+ "govorov_R30_peak_nm": 533.0,
+ "govorov_fig1b_read_K": 4.3,
+ "slope_quasistatic": 2.0,
+ "slope_mie_R_le_10nm": 2.021,
+ "skirtach_ratio_full_sum": 1.996,
+ "skirtach_ratio_sqrtFs_model": 1.414,
+ "skirtach_ratio_measured": 1.58,
+ "skirtach_ratio_measured_err": 0.27,
+ "t63_over_R2_kappa": 2.076,
+ "t90_over_R2_kappa": 31.9,
+ "t63_s": {
+  "gold particle, R = 3 nm": 1.3347659142147193e-10,
+  "our carrier, R = 70 nm": 7.26705886628014e-08,
+  "Skirtach capsule, R = 2.5 um": 9.26920773760222e-05
+ },
+ "fraction_of_steady_after_10ns": {
+  "gold particle, R = 3 nm": 0.954616070285251,
+  "our carrier, R = 70 nm": 0.25598278374358896,
+  "Skirtach capsule, R = 2.5 um": 0.00030179368572407
+ },
+ "tau_slope_numeric": 2.0
+}

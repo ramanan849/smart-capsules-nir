@@ -1,0 +1,11 @@
+{
+ "Mie peak, 5 nm sphere in water, 515-525 nm": true,
+ "rods reach 800-830 nm for some aspect ratio": true,
+ "quasi-static vs Mie (R = 5 nm) within 5%": true,
+ "dT ~ R^2: slope 2.00 +/- 0.02": true,
+ "Govorov Fig. 1b within 30%": true,
+ "transient time ~ R^2 (slope 2)": true,
+ "Pennes numeric = analytic (1%)": true,
+ "CEM43 of 43 C for 10 min = 10 min": true,
+ "release model matches Deng dox at 24 h": true
+}

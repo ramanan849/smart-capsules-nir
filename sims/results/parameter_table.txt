@@ -1,0 +1,38 @@
+name             value                      unit         checked source
+k_water          0.6                        W/(m K)      yes     standard value for water near 37 C
+kappa_water      1.4e-07                    m^2/s        yes     standard value for water (k / rho c)
+k_tissue         0.5                        W/(m K)      NO      typical soft tissue; range 0.4-0.6 used in sensitivity
+rhoc_tissue      3600000.0                  J/(m^3 K)    NO      typical soft tissue (rho ~1050 kg/m3, c ~3500 J/kg K)
+rho_tissue       1050.0                     kg/m^3       yes     typical soft tissue
+c_blood          3617.0                     J/(kg K)     yes     typical blood heat capacity
+w_blood          2.0                        kg/(m^3 s)   NO      perfusion; handoff range 0.5-5, middle value used, swept
+T_body           37.0                       C            yes     body temperature
+n_water          1.33                       -            yes     water
+n_shell          1.45                       -            NO      polyelectrolyte shell ~1.5, effective value with water; swept 1.33-1.5
+vF_au            1400000.0                  m/s          yes     Fermi velocity of gold (handoff; Kreibig & Vollmer)
+A_sizecorr       1.0                        -            yes     surface-scattering constant in gamma = gamma_bulk + A vF / R
+hwp_au           9.03                       eV           NO      Drude plasma energy of gold (standard fit to J&C)
+hgamma_au        0.072                      eV           NO      bulk Drude damping of gold (standard fit to J&C)
+eps_au_table     data/au_johnson_christy.csv -            yes     Johnson & Christy, Phys Rev B 1972;6:4370
+rho_au           19300.0                    kg/m^3       yes     gold density
+d_core           1e-07                      m            yes     liposome core, extruded through 100 nm membrane (our fabrication step); Deng's core was ~120 nm (Deng 2013 Fig. 2A, CML stand-in)
+layer_dd         5.5e-09                    m            yes     Deng 2013 Fig. 2A: hydrodynamic DIAMETER grows ~5 nm per layer (118 -> 140 nm over 4 layers), i.e. ~2.75 nm of wall per layer
+n_layers         4                          -            yes     4-6 PSS/PAH layers (Submission 3)
+au_sphere_r      5e-09                      m            yes     option A sphere radius (5-15 nm diameter range in Submission 3)
+au_angelatos_d   6e-09                      m            yes     Angelatos 2005: average gold DIAMETER 6 nm (radius 3 nm)
+rod_L            4e-08                      m            NO      option B rod length, typical seed-mediated rod
+rod_D            1e-08                      m            NO      option B rod width, typical seed-mediated rod
+n_rods           30                         -            yes     rods per carrier (~Fs 0.25 of a 130 nm carrier); swept 10-50
+Fs_spheres       0.2                        -            yes     surface filling factor for spheres (Skirtach 2005 range 0.05-0.4)
+lam              8.08e-07                   m            yes     trigger wavelength (800-830 nm window)
+MPE_cw_808       0.33                       W/cm^2       NO      ANSI Z136.1 / IEC 60825-1 skin MPE, t > 10 s: 0.2*C_A W/cm2, C_A = 10^(0.002(lam-700)) for 700-1050 nm -> 0.33 W/cm2 at 808 nm. Formula from the standard as quoted in secondary sources; the 0.33 W/cm2 at 810 nm value is listed in a published protocol
+I_oneal          4.0                        W/cm^2       NO      O'Neal et al., Cancer Lett 2004;209:171 (808 nm, 4 W/cm2, 3 min) - abstract-level check only
+I_angelatos_avg  7.0                        W/cm^2       yes     Angelatos 2005: 700 mJ/cm2 x 10 Hz = 7 W/cm2 average, 5 min
+Tm_ltsl          41.0                       C            NO      LTSL (DPPC/lysolipid/DSPE-PEG 90:10:4) release around 39-41 C; DPPC main transition ~41 C (Needham 2000; Yarmolenko 2010)
+t50_40C          20.0                       s            NO      LTSL ~50% released in <20 s at 40 C (Needham 2000, as quoted by Yarmolenko et al. Int J Hyperthermia 2010)
+deng_dox_24h     0.11                       -            yes     Deng 2013 Fig. 6B: ~11% dox released from LbL liposome at 24 h (DMEM; rigid DSPC/Chol/POPG liposome, NOT thermosensitive)
+P_shell          1e-06                      cm/s         NO      doxorubicin permeability of PSS/PAH wall: UNKNOWN, swept 1e-9 - 1e-5
+E_pe             several hundred            MPa          yes     Fery & Weinkamer 2007; no exact value, only for h/R < 1/10
+nunes_gold       41.0                       ug/g         yes     Nunes 2019: tumour gold 41 +/- 1 ug/g at 72 h after IV dose
+skirtach_ratio   1.58                       -            yes     Skirtach 2005: slope ratio for Fs 0.2 -> 0.4 (text p.1375; 1.5 in our earlier draft)
+govorov_fig1     4.3                        K            yes     Govorov & Richardson 2007 Fig. 1b: R=30 nm Au, 1e4 W/cm2, water, read off plot
